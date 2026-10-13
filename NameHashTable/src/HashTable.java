@@ -1,0 +1,52 @@
+package namehashtable;
+
+public class HashTable {
+	 private DataItem[] hashArray; // array holds hash table
+	   private int arraySize;
+	 
+
+	   public HashTable(int size) { // constructor
+	      arraySize = size;
+	      hashArray = new DataItem[arraySize];
+	   
+	   }
+
+	   public void displayTable() {
+	      System.out.print("Table: ");
+	      for (int j = 0; j < arraySize; j++) {
+	         if (hashArray[j] != null)
+	            System.out.print(hashArray[j].getKey() + " ");
+	         else
+	            System.out.print("** ");
+	      }
+	      System.out.println("");
+	   }
+
+	   public int hashFunc(int key) {
+	      return key % arraySize; // hash function
+	   }
+
+	   public void insert(DataItem item) { // insert a DataItem (assumes table not full)
+	      int key = item.getKey(); // extract key
+	      int hashVal = hashFunc(key); // hash the key
+
+	      while (hashArray[hashVal] != null && hashArray[hashVal].getKey() != -1) {
+	         ++hashVal; // go to next cell
+	         hashVal %= arraySize; // wraparound if necessary
+	      }
+	      hashArray[hashVal] = item; // insert item
+	   }
+
+	   public DataItem[] getHashArray() {
+	        return hashArray;
+	    }
+
+	    // Add this method to your HashTable class
+	    public DataItem getItem(int index) {
+	        if (index >= 0 && index < arraySize) {
+	            return hashArray[index];
+	        }
+	        return null;
+	    }
+	   
+}
